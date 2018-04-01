@@ -37,11 +37,17 @@ public void run(String[] args) {
 
 	        	if(!hasCinema(cinemaNum)) {	        		
 	        		Cinema newCinema = new Cinema(cinemaNum);
-	        		newCinema.addRow(row);
+	        		if(!newCinema.hasRow(rowID)) {
+	        			newCinema.addRow(row);
+	        		}
+	        		
 	        		cinemas.add(newCinema);
 	        	}else {
 	        		Cinema existingCinema = findCinemaByNum(cinemaNum);
-	        		existingCinema.addRow(row);
+	        		if(!existingCinema.hasRow(rowID)) {
+	        			existingCinema.addRow(row);
+	        		}
+	        		
 	        	}
 	        }else if(commandParts[0].equals("Session") || commandParts[0].equals("session")) {
 	        	StringBuilder movie = new StringBuilder();
