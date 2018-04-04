@@ -17,7 +17,7 @@ public class Session {
 	}
 	
 	
-	public void makeBooking() {
+	public void makeBooking(int numOfSeats) {
 		
 	}
 	
