@@ -36,5 +36,8 @@ public class Row {
 	public void setAvailSeats(int availSeats) {
 		this.availSeats = availSeats;
 	} 
+	public void print() {
+		System.out.println("Row " + getRowID()+ " has "+getSeats().size() + " seats");
+	}
 	
 }

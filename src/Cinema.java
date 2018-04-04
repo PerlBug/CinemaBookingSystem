@@ -10,6 +10,16 @@ public class Cinema {
 		rows = new ArrayList<Row>();
 		sessions = new ArrayList<Session>();
 	}
+	
+	public Session getSessionByTime(String time) {
+		for(Session sesh: sessions) {
+			if(sesh.getTime().equals(time)) {
+				return sesh;
+			}
+		}
+		return null;
+	}
+	
 	public void addRow(Row row) {
 		rows.add(row);
 	}
@@ -33,10 +43,17 @@ public class Cinema {
 	}
 	
 	public void print() {
-		System.out.println("Cinema number: " + getCinemaNum()+ " has " +getNumOfRows()+" rows"); 
+		System.out.println("Cinema " + getCinemaNum()+ " has " +getNumOfRows()+" rows as follows:"); 
 		for(Row row : rows) {
-			System.out.println("Row: " + row.getRowID()+ " has "+row.getSeats().size() + " seats");
+			row.print();
 		}
+		System.out.println("Cinema " + getCinemaNum()+ " has the following sessions: " );
+		for(Session session : sessions) {
+			session.print();
+		}
+		System.out.println("--------------------------------");
+		
+		
 	}
 	public int getNumOfRows() {
 		return rows.size();
@@ -50,4 +67,10 @@ public class Cinema {
 		}
 		return false;
 	}	
+	
+	public void addSession(Session session) {
+		sessions.add(session);
+	}
+	
+	
 }
