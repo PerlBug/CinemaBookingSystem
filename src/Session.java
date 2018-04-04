@@ -4,13 +4,21 @@ public class Session {
 	private String movie;
 	private String time;
 	private int cinemaNum;
+	private ArrayList<Row> sessionRows;
 	private ArrayList<Booking> bookings;
 	
-	public Session(int cinemaNum, String time, String movie) {
+	
+	public Session(int cinemaNum, String time, String movie, ArrayList<Row> sessionRows) {
 		this.movie = movie;
 		this.time = time;
 		this.cinemaNum = cinemaNum;
 		bookings = new ArrayList<Booking>();
+		this.sessionRows = sessionRows;
+	}
+	
+	
+	public void makeBooking() {
+		
 	}
 	
 	public void addBookingToList(Booking booking) {
