@@ -30,6 +30,11 @@ public class Row {
 	public void setSeats(ArrayList<Seat> seats) {
 		this.seats = seats;
 	}
+	
+	public int getNumOfSeats() {
+		return seats.size();
+	}
+	
 	public int getAvailSeats() {
 		return availSeats;
 	}

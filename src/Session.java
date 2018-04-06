@@ -17,9 +17,6 @@ public class Session {
 	}
 	
 	
-	public void makeBooking(int numOfSeats) {
-		
-	}
 	
 	public void addBookingToList(Booking booking) {
 		bookings.add(booking);
