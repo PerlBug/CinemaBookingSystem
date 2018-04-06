@@ -79,7 +79,10 @@ public void run(String[] args) {
 	        	Booking newBooking = new Booking(bookingNum, cinemaGiven, sessionGiven, numOfSeats);
 	        	sessionGiven.addBookingToList(newBooking);
 	        	
+	        	
 	        	newBooking.print();
+	        	newBooking.getCinemaBooked().print();
+	        	newBooking.makeBooking();
         	//CHANGE COMMAND
 	        }else if(commandParts[0].equals("Change") || commandParts[0].equals("change")){
 	        

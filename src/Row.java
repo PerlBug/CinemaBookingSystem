@@ -12,7 +12,7 @@ public class Row {
 	
 	public void addSeatsToRow(int numOfSeats){
 		for(int i = 1; i <= numOfSeats; i++) {
-			seats.add(new Seat(i));
+			seats.add(new Seat(i, this));
 		}
 	}
 	
@@ -20,6 +20,9 @@ public class Row {
 		return rowID;
 	}
 	
+	public Seat getSeatByIndex(int i) {
+		return seats.get(i);
+	}
 	
 	public void setRowID(String rowID) {
 		this.rowID = rowID;
@@ -43,6 +46,15 @@ public class Row {
 	} 
 	public void print() {
 		System.out.println("Row " + getRowID()+ " has "+getSeats().size() + " seats");
+	}
+	
+	public Seat findSeatBySeatID(String ID) {
+		for(Seat seat: seats) {
+			if(seat.getSeatId().equals(ID)) {
+				return seat;
+			}
+		}
+		return null;
 	}
 	
 }
