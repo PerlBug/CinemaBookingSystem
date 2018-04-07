@@ -13,13 +13,31 @@ public class Session {
 		this.time = time;
 		this.cinemaNum = cinemaNum;
 		bookings = new ArrayList<Booking>();
-		this.sessionRows = sessionRows;
+		this.setSessionRows(sessionRows);
 	}
 	
+	public Session(int cinemaNum, String time, String movie) {
+		this.movie = movie;
+		this.time = time;
+		this.cinemaNum = cinemaNum;
+		bookings = new ArrayList<Booking>();
+		sessionRows = new ArrayList<Row>();
+	}
 	
-	
+
+
+
 	public void addBookingToList(Booking booking) {
 		bookings.add(booking);
+	}
+	
+	public void printSessionRows() {
+		for(Row row:sessionRows) {
+			for(Seat seat: row.getSeats()) {
+				System.out.print(seat.getSeatId() + seat.isReserved() +" ");
+			}
+			System.out.println(" ");
+		}
 	}
 	public void print() {
 		System.out.println("The movie " + movie + " is playing at "+ time + " at cinema " + cinemaNum);
@@ -56,6 +74,19 @@ public class Session {
 	public void setBookings(ArrayList<Booking> bookings) {
 		this.bookings = bookings;
 	}
+
+
+
+	public ArrayList<Row> getSessionRows() {
+		return sessionRows;
+	}
+
+
+
+	public void setSessionRows(ArrayList<Row> sessionRows) {
+		this.sessionRows = sessionRows;
+	}
+	
 	
 	
 }

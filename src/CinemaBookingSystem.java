@@ -60,7 +60,7 @@ public void run(String[] args) {
 	        		movie = movie.append(" " + commandParts[i]);
 	        	}
 	        	String movieString = movie.toString();
-	        	Session session = new Session(cinemaNum,time, movieString,findCinemaByNum(cinemaNum).getRows());        	
+	        	Session session = new Session(cinemaNum,time, movieString);        	
 	        	findCinemaByNum(cinemaNum).addSession(session);
 	        	
 	        }
@@ -75,16 +75,20 @@ public void run(String[] args) {
 	        	Cinema cinemaGiven = findCinemaByNum(cinemaNum);
 	        	//Find session by time 
 	        	Session sessionGiven = cinemaGiven.getSessionByTime(sessionTime);
-	        	
+	        	sessionGiven.printSessionRows();
 	        	Booking newBooking = new Booking(bookingNum, cinemaGiven, sessionGiven, numOfSeats);
 	        	sessionGiven.addBookingToList(newBooking);
 	        	
 	        	
-	        	newBooking.print();
-	        	newBooking.getCinemaBooked().print();
-	        	newBooking.makeBooking();
-	        	newBooking.printBookedSeats();
-        	//CHANGE COMMAND
+	        	//newBooking.print();
+	        	//newBooking.getCinemaBooked().print();
+	        	if(!newBooking.makeBooking()) {
+	        		System.out.println("Booking rejected");
+	        	}else {
+	        		newBooking.printBookedSeats();
+	        	}
+	        	
+	        //CHANGE COMMAND
 	        }else if(commandParts[0].equals("Change") || commandParts[0].equals("change")){
 	        
 	        }

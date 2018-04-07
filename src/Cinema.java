@@ -5,6 +5,7 @@ public class Cinema {
 	private ArrayList<Row> rows;
 	private ArrayList<Session> sessions;
 	
+	
 	public Cinema(int cinemaNum) {
 		this.cinemaNum = cinemaNum;
 		rows = new ArrayList<Row>();
@@ -20,6 +21,13 @@ public class Cinema {
 		return null;
 	}
 	
+	public ArrayList<Row> deepCopyRow(){
+		ArrayList<Row> copy = new ArrayList<>();
+		for(Row row: rows) {
+			copy.add(new Row(row.getRowID()));
+		}
+		return copy;
+	}
 	public void addRow(Row row) {
 		rows.add(row);
 	}

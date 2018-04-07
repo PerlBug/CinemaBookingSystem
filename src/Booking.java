@@ -17,6 +17,10 @@ public class Booking {
 		this.numOfSeatsBooked = numOfSeatsBooked;		
 	} 
 	
+	public void bookSessionRows() {
+		
+	}
+	
 	public boolean anySeatTaken(ArrayList<Seat> currSeats) {
 		
 		for(int i = 0; i < currSeats.size(); i++) {
@@ -27,6 +31,9 @@ public class Booking {
 			}
 		}
 		return false;
+	}
+	public void bookSeatsInsideCinema() {
+		
 	}
 	
 	public boolean makeBooking() {
@@ -41,18 +48,23 @@ public class Booking {
 					int lastSeat = i + n;
 					//System.out.println(currRow.getSeatByIndex(i).getSeatId() + " starts " + firstSeat + " ends " + lastSeat);
 					
-					for(int j = firstSeat;j <=lastSeat; j++) { //get individual seats						
+					for(int j = firstSeat;j <=lastSeat; j++) { //get individual seats
+						
 						currSeats.add(currRow.getSeatByIndex(j));					
-						System.out.print(currRow.getSeatByIndex(j).getSeatId() + currRow.getSeatByIndex(j).isReserved() + " ");
+						//System.out.print(currRow.getSeatByIndex(j).getSeatId() + currRow.getSeatByIndex(j).isReserved() + " ");
 						
 					}
-					System.out.println("");
-					System.out.println(currSeats);
+					//System.out.println("");
+					//System.out.println(currSeats);
 					if(anySeatTaken(currSeats)) {
 						currSeats.clear();
 						continue;
 					}else {
 						seatsBooked = currSeats;
+						for(Seat seat: seatsBooked) {
+							seat.setReserved(true);
+						}
+						bookSessionRows();
 						return true;
 					}
 										
@@ -70,10 +82,8 @@ public class Booking {
 	}
 	
 	public void printBookedSeats() {
-		System.out.println("Seats Booked: ");
-		for(Seat seat: seatsBooked) {
-			System.out.print(seat.getSeatId() + " ");
-		}
+		System.out.println("Booking "+ getBookingNum() + " " +seatsBooked.get(0).getSeatId()+"-"+seatsBooked.get(seatsBooked.size()-1).getSeatId());
+	
 	}
 	public void print() {
 		System.out.println("------------------------------");
