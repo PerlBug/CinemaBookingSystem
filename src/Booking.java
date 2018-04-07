@@ -17,61 +17,64 @@ public class Booking {
 		this.numOfSeatsBooked = numOfSeatsBooked;		
 	} 
 	
+	public boolean anySeatTaken(ArrayList<Seat> currSeats) {
+		
+		for(int i = 0; i < currSeats.size(); i++) {
+			if(!currSeats.get(i).isReserved()) {
+				continue;
+			}else {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public boolean makeBooking() {
 		seatsBooked = new ArrayList<Seat>();
 		ArrayList<Row> cinemaRows = cinemaBooked.getRows();
 		ArrayList<Seat> currSeats = new ArrayList<>();
-		boolean canBook = true;
-		cinemaRows.get(0).getSeatByIndex(0).setReserved(true);
 		int n = numOfSeatsBooked - 1;
 
 		for(Row currRow : cinemaRows) {
-			
-			for(int i = 0; i < currRow.getNumOfSeats() - n; i++) {
-				int firstSeat = i;
-				int lastSeat = i + n;
-				//System.out.println(currRow.getSeatByIndex(i).getSeatId() + " starts " + firstSeat + " ends " + lastSeat);
-				for(int j = firstSeat;j <=lastSeat; j++) {
-					canBook = true;
+				for(int i = 0; i < currRow.getNumOfSeats() - n; i++) {
+					int firstSeat = i;
+					int lastSeat = i + n;
+					//System.out.println(currRow.getSeatByIndex(i).getSeatId() + " starts " + firstSeat + " ends " + lastSeat);
 					
-					currSeats.add(currRow.getSeatByIndex(j));			
-
+					for(int j = firstSeat;j <=lastSeat; j++) { //get individual seats						
+						currSeats.add(currRow.getSeatByIndex(j));					
+						System.out.print(currRow.getSeatByIndex(j).getSeatId() + currRow.getSeatByIndex(j).isReserved() + " ");
+						
+					}
+					System.out.println("");
+					System.out.println(currSeats);
+					if(anySeatTaken(currSeats)) {
+						currSeats.clear();
+						continue;
+					}else {
+						seatsBooked = currSeats;
+						return true;
+					}
+										
+					
 						
 					
-					
-					System.out.print(currRow.getSeatByIndex(j).getSeatId() + currRow.getSeatByIndex(j).isReserved() + " ");
-					
 				}
-				
-				for(Seat seat: currSeats) {
-					if(seat.isReserved() == true) {
-						canBook = false;
-					}
-				} 
-				System.out.println("");
-				if(canBook == true) {
-					for(Seat seat:currSeats) {
-						seatsBooked.add(seat);
-					}
-				} 
-				currSeats.clear();
-				
+			}
 					
-				
-			}
-			System.out.println("Seats booked " + seatsBooked.size());
-			for(Seat seat: seatsBooked) {
-				System.out.print(seat.getSeatId() + " ");
-			}
-			System.out.println();
-			System.out.println("--------------------------");
-		}
-				
+			
+			
 		
 		return false;
+		
 	}
 	
+	public void printBookedSeats() {
+		System.out.println("Seats Booked: ");
+		for(Seat seat: seatsBooked) {
+			System.out.print(seat.getSeatId() + " ");
+		}
+	}
 	public void print() {
 		System.out.println("------------------------------");
 		System.out.println("Booking Num: " + bookingNum);

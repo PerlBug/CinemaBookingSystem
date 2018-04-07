@@ -83,6 +83,7 @@ public void run(String[] args) {
 	        	newBooking.print();
 	        	newBooking.getCinemaBooked().print();
 	        	newBooking.makeBooking();
+	        	newBooking.printBookedSeats();
         	//CHANGE COMMAND
 	        }else if(commandParts[0].equals("Change") || commandParts[0].equals("change")){
 	        
