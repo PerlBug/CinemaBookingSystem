@@ -2,13 +2,16 @@
 public class Seat {
 	private Row row;
 	private int seatNum;
+	private String seatID;
 	private boolean reserved;
 	
 	
 	public Seat(int seatNum, Row row) {
 		this.seatNum = seatNum;
-		this.row = row;
+		this.setRow(row);
 		this.reserved = false;
+		this.seatID = row.getRowID() + seatNum;
+		
 	}
 	public int getSeatNum() {
 		return seatNum;
@@ -25,7 +28,17 @@ public class Seat {
 	
 	public String getSeatId() {
 		
-		return row.getRowID() + seatNum;
+		return seatID;
+	}
+	
+	public void print() {
+		System.out.print(seatID + isReserved() + " ");
+	}
+	public Row getRow() {
+		return row;
+	}
+	public void setRow(Row row) {
+		this.row = row;
 	}
 	
 }

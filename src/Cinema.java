@@ -24,7 +24,7 @@ public class Cinema {
 	public ArrayList<Row> deepCopyRow(){
 		ArrayList<Row> copy = new ArrayList<>();
 		for(Row row: rows) {
-			copy.add(new Row(row.getRowID()));
+			copy.add(new Row(row.getRowID(), row.getNumOfSeats()));
 		}
 		return copy;
 	}
@@ -48,6 +48,15 @@ public class Cinema {
 	}
 	public void setSessions(ArrayList<Session> sessions) {
 		this.sessions = sessions;
+	}
+	
+	public void printCinemaRows() {
+		for(Row row:rows) {
+			for(Seat seat: row.getSeats()) {
+				System.out.print(seat.getSeatId() + seat.isReserved() +" ");
+			}
+			System.out.println(" ");
+		}
 	}
 	
 	public void print() {

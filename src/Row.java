@@ -5,16 +5,15 @@ public class Row {
 	private ArrayList<Seat> seats;
 	private int availSeats;
 	
-	public Row(String rowID) {
+	public Row(String rowID, int numOfSeats) {
 		this.rowID = rowID;
 		seats = new ArrayList<Seat>();
-	}
-	
-	public void addSeatsToRow(int numOfSeats){
 		for(int i = 1; i <= numOfSeats; i++) {
 			seats.add(new Seat(i, this));
 		}
 	}
+
+	
 	
 	public String getRowID() {
 		return rowID;
@@ -45,8 +44,13 @@ public class Row {
 		this.availSeats = availSeats;
 	} 
 	public void print() {
-		System.out.println("Row " + getRowID()+ " has "+getSeats().size() + " seats");
+		System.out.print(rowID+":");
+		for(Seat seat:getSeats()) {
+			
+		}
 	}
+	
+	
 	
 	public Seat findSeatBySeatID(String ID) {
 		for(Seat seat: seats) {

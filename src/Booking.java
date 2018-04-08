@@ -7,19 +7,18 @@ public class Booking {
 	private Row rowBooked;
 	private ArrayList<Seat> seatsBooked;
 	private int numOfSeatsBooked;
-	private int startSeat;
-	private int endSeat;
+	
 	
 	public Booking(int bookingNum, Cinema cinemaBooked, Session sessionBooked, int numOfSeatsBooked) {
 		this.bookingNum = bookingNum;
 		this.cinemaBooked = cinemaBooked;
 		this.sessionBooked = sessionBooked;
-		this.numOfSeatsBooked = numOfSeatsBooked;		
+		this.numOfSeatsBooked = numOfSeatsBooked;
 	} 
-	
-	public void bookSessionRows() {
+	public Booking() {
 		
 	}
+
 	
 	public boolean anySeatTaken(ArrayList<Seat> currSeats) {
 		
@@ -32,13 +31,49 @@ public class Booking {
 		}
 		return false;
 	}
-	public void bookSeatsInsideCinema() {
+	
+	public void cancelBooking() {
+		
+		ArrayList<Row> rows = sessionBooked.getSessionRows();	
+		for(Row row: rows) {
+			if(row.getSeats().containsAll(seatsBooked)) {
+				for(Seat seat: row.getSeats()) {
+					seat.setReserved(false);
+				}
+			}
+		}
+		System.out.println("Cancel " + bookingNum);
+
+	
 		
 	}
 	
+	public boolean changeBooking(Session oldSession, Session newSession, Cinema cinemaBooked,int numOfSeatsBooked) {
+		//find old session and free seats
+		ArrayList<Row> rows = oldSession.getSessionRows();	
+		for(Row row: rows) {
+			if(row.getSeats().containsAll(seatsBooked)) {
+				for(Seat seat: row.getSeats()) {
+					seat.setReserved(false);
+				}
+			}
+		}
+		
+		//book new session
+		this.sessionBooked = newSession;
+		this.cinemaBooked = cinemaBooked;
+		this.numOfSeatsBooked = numOfSeatsBooked;
+		return makeBooking();
+		
+		
+		
+		
+		
+	}
 	public boolean makeBooking() {
+		
 		seatsBooked = new ArrayList<Seat>();
-		ArrayList<Row> cinemaRows = cinemaBooked.getRows();
+		ArrayList<Row> cinemaRows = sessionBooked.getSessionRows();
 		ArrayList<Seat> currSeats = new ArrayList<>();
 		int n = numOfSeatsBooked - 1;
 
@@ -64,7 +99,7 @@ public class Booking {
 						for(Seat seat: seatsBooked) {
 							seat.setReserved(true);
 						}
-						bookSessionRows();
+						setRowBooked(seatsBooked.get(0).getRow());
 						return true;
 					}
 										
@@ -80,18 +115,27 @@ public class Booking {
 		return false;
 		
 	}
-	
+	public void printChangedSeats() {
+		System.out.println("Change "+ getBookingNum() + " " +seatsBooked.get(0).getSeatId()+"-"+seatsBooked.get(seatsBooked.size()-1).getSeatId());
+
+	}
 	public void printBookedSeats() {
-		System.out.println("Booking "+ getBookingNum() + " " +seatsBooked.get(0).getSeatId()+"-"+seatsBooked.get(seatsBooked.size()-1).getSeatId());
+		if(numOfSeatsBooked > 1) {
+			System.out.println("Booking "+ getBookingNum() + " " +seatsBooked.get(0).getSeatId()+"-"+seatsBooked.get(seatsBooked.size()-1).getSeatId());
+
+		} else {
+			System.out.println("Booking "+ getBookingNum() + " " +seatsBooked.get(0).getSeatId());
+		}
 	
 	}
+	
 	public void print() {
-		System.out.println("------------------------------");
-		System.out.println("Booking Num: " + bookingNum);
-		System.out.println("Cinema Num " + cinemaBooked.getCinemaNum());
-		System.out.println("For session: " + sessionBooked.getMovie() +" at " + sessionBooked.getTime());
-		System.out.println("Num of seats to book: " + numOfSeatsBooked);
-		System.out.println("------------------------------");
+		if(numOfSeatsBooked > 1) {
+			System.out.print(seatsBooked.get(0).getSeatNum()+"-"+seatsBooked.get(seatsBooked.size()-1).getSeatNum());
+
+		} else {
+			System.out.print(seatsBooked.get(0).getSeatNum());
+		}
 
 	}
 
@@ -144,29 +188,8 @@ public class Booking {
 	public void setNumOfSeatsBooked(int numOfSeatsBooked) {
 		this.numOfSeatsBooked = numOfSeatsBooked;
 	}
-
-
-	public int getStartSeat() {
-		return startSeat;
-	}
-
-
-	public void setStartSeat(int startSeat) {
-		this.startSeat = startSeat;
-	}
-
-
-	public int getEndSeat() {
-		return endSeat;
-	}
-
-
-	public void setEndSeat(int endSeat) {
-		this.endSeat = endSeat;
-	}
 	
-	
-	
-	
+
+
 	
 }

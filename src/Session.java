@@ -13,19 +13,21 @@ public class Session {
 		this.time = time;
 		this.cinemaNum = cinemaNum;
 		bookings = new ArrayList<Booking>();
-		this.setSessionRows(sessionRows);
+		this.sessionRows = new ArrayList<>();
+		for(Row row:sessionRows) {
+			this.sessionRows.add(new Row(row.getRowID(), row.getNumOfSeats()));
+		}
 	}
-	
-	public Session(int cinemaNum, String time, String movie) {
-		this.movie = movie;
-		this.time = time;
-		this.cinemaNum = cinemaNum;
-		bookings = new ArrayList<Booking>();
-		sessionRows = new ArrayList<Row>();
+
+	public Booking getBookingByNum(int num) {
+		
+		for(Booking booking: bookings) {
+			if(booking.getBookingNum() == num) {
+				return booking;
+			}
+		}
+		return null;
 	}
-	
-
-
 
 	public void addBookingToList(Booking booking) {
 		bookings.add(booking);
@@ -34,13 +36,41 @@ public class Session {
 	public void printSessionRows() {
 		for(Row row:sessionRows) {
 			for(Seat seat: row.getSeats()) {
-				System.out.print(seat.getSeatId() + seat.isReserved() +" ");
+				System.out.print(seat.getSeatId() + seat.isReserved() + " ");
 			}
-			System.out.println(" ");
+			System.out.println();
+
 		}
+		System.out.println("no of bookings "+ bookings.size());
 	}
 	public void print() {
-		System.out.println("The movie " + movie + " is playing at "+ time + " at cinema " + cinemaNum);
+		System.out.println(movie);
+		ArrayList<Booking> printedBookings = new ArrayList<>();
+		for(Row row: sessionRows) {
+			System.out.print(row.getRowID()+":");
+			System.out.print(" ");
+			
+			for(Booking booking:bookings) {
+				if(booking.getRowBooked().getRowID().equals(row.getRowID())) {
+					booking.print();
+					printedBookings.add(booking);
+					break;
+				}
+			}
+			
+			
+			
+			for(int i = 0; i < bookings.size(); i++) {
+				if(bookings.get(i).getRowBooked().getRowID().equals(row.getRowID()) && !printedBookings.contains(bookings.get(i))) {
+					System.out.print(",");
+					bookings.get(i).print();
+				}
+			}
+			
+			
+			
+			System.out.println();
+		}
 	}
 
 	public String getMovie() {
@@ -85,6 +115,10 @@ public class Session {
 
 	public void setSessionRows(ArrayList<Row> sessionRows) {
 		this.sessionRows = sessionRows;
+	}
+	
+	public void printBookings() {
+		System.out.println("no of bookings made for the "+ getMovie()+ " session: " + bookings.size());
 	}
 	
 	
