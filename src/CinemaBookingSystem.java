@@ -83,6 +83,7 @@ public void run(String[] args) {
 	        	//Find cinema by num 
 	        	Cinema cinemaGiven = findCinemaByNum(cinemaNum);
 	        	//Find session by time 
+	        	
 	        	Session sessionGiven = cinemaGiven.getSessionByTime(sessionTime);
 	        	
 	        	Booking newBooking = new Booking(bookingNum, cinemaGiven, sessionGiven, numOfSeats);

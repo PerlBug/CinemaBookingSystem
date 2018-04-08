@@ -47,18 +47,15 @@ public class Session {
 		System.out.println(movie);
 		ArrayList<Booking> printedBookings = new ArrayList<>();
 		for(Row row: sessionRows) {
-			System.out.print(row.getRowID()+":");
-			System.out.print(" ");
-			
+						
 			for(Booking booking:bookings) {
 				if(booking.getRowBooked().getRowID().equals(row.getRowID())) {
+					System.out.print(row.getRowID()+": ");
 					booking.print();
 					printedBookings.add(booking);
 					break;
 				}
-			}
-			
-			
+			}		
 			
 			for(int i = 0; i < bookings.size(); i++) {
 				if(bookings.get(i).getRowBooked().getRowID().equals(row.getRowID()) && !printedBookings.contains(bookings.get(i))) {
